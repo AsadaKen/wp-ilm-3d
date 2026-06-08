@@ -17,7 +17,7 @@ export default function Profile() {
             <div className="absolute inset-0 bg-gradient-to-tr from-accent to-primary rounded-2xl rotate-3 scale-102 group-hover:rotate-6 transition-transform duration-300 shadow-md" />
             
             {/* Wadah Utama Foto */}
-            <div className="absolute inset-0 bg-white rounded-2xl border-2 border-slate-800 flex flex-col items-center justify-center overflow-hidden shadow-inner bg-slate-50">
+            <div className="absolute inset-0 rounded-2xl border-2 border-slate-800 flex flex-col items-center justify-center overflow-hidden shadow-inner bg-slate-50">
               <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-bg flex items-center justify-center text-primary/70 shadow-md border border-white">
                 <User size={44} className="md:hidden" />
                 <User size={60} className="hidden md:block" />
