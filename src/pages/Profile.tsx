@@ -53,7 +53,7 @@ export default function Profile() {
                   <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-0.5 rounded-md w-max">
                     <IdCard size={14} className="text-text-muted" />
                     {}
-                    <span className="text-sm font-mono font-bold text-slate-800">"C1022312481"</span>
+                    <span className="text-sm font-mono font-bold text-slate-800">C1022312481</span>
                   </div>
                 </div>
 
