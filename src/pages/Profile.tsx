@@ -1,74 +1,115 @@
-import { Users, GraduationCap, Code, PenTool } from 'lucide-react';
+import { User, GraduationCap, FileText, IdCard } from 'lucide-react';
 
 export default function Profile() {
-  // Data tim pengembang
-  const teamMembers = [
-    {
-      name: 'Anugrah Syahru Ramadhan',
-      role: 'Lead Developer & 3D Interactive Designer',
-      icon: <Code size={20} />,
-      major: 'Teknik Informatika'
-    },
-    {
-      name: 'Fuji Pangestu',
-      role: 'Research & Content Specialist',
-      icon: <PenTool size={20} />,
-      major: 'Teknologi Bandar Udara'
-    },
-  ];
-
   return (
-    <div className="w-full h-full bg-bg overflow-y-auto px-6 py-8 pb-32 font-sans text-slate-800">
-      <div className="max-w-2xl mx-auto">
+    <div className="w-full h-full bg-bg overflow-y-auto px-6 py-12 pb-32 font-sans text-slate-800 flex items-center justify-center">
+      <div className="w-full max-w-4xl bg-surface rounded-3xl p-8 md:p-10 shadow-xl border-2 border-white relative overflow-hidden flex flex-col gap-8 md:gap-10">
         
-        {/* Header Halaman */}
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-white">
-            <Users size={36} className="text-white" />
-          </div>
-          <h1 className="text-3xl font-black text-slate-900 mb-2">Tim Pengembang</h1>
-          <p className="text-slate-700 font-medium text-sm">
-            Riset Media Pembelajaran Berbasis 3D Interaktif
-          </p>
-        </div>
-
-        {/* Kartu Afiliasi Universitas */}
-        <div className="bg-surface rounded-2xl p-6 shadow-sm border-2 border-white mb-8 flex items-center gap-5 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 bg-[#5A73FF]/10 rounded-xl flex items-center justify-center shrink-0">
-            <GraduationCap size={28} className="text-accent" />
-          </div>
-          <div>
-            <h2 className="text-[17px] font-extrabold text-slate-900 leading-tight mb-1">
-              POLITEKNIK PENERBANGAN MAKASSAR
-            </h2>
-            <p className="text-sm text-slate-600 font-medium">Program Studi Teknologi Bandar Udara</p>
-          </div>
-        </div>
-
-        {/* Daftar Anggota Tim */}
-        <h3 className="text-lg font-black text-slate-900 mb-4 border-b-[3px] border-slate-300/50 pb-2 inline-block">
-          Anggota Tim
-        </h3>
+        {/* Dekorasi Aksen Elemen Estetik */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-bl-full pointer-events-none" />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {teamMembers.map((member, index) => (
-            <div 
-              key={index} 
-              className="bg-white rounded-xl p-5 shadow-sm border-2 border-slate-100 flex items-start gap-4 hover:border-accent/30 hover:shadow-md transition-all group"
-            >
-              <div className="w-11 h-11 bg-slate-100 rounded-full flex items-center justify-center shrink-0 text-slate-500 group-hover:bg-accent group-hover:text-white transition-colors">
-                {member.icon}
+        {/* BLOCK UTAMA: Split Tampilan Kiri & Kanan */}
+        <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
+          
+          {/* SISI KIRI: Placeholder Besar Gambar Profil Keren */}
+          <div className="w-48 h-48 md:w-64 md:h-64 shrink-0 relative group">
+            {/* Efek Bayangan dan Rotasi Bingkai */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-accent to-primary rounded-2xl rotate-3 scale-102 group-hover:rotate-6 transition-transform duration-300 shadow-md" />
+            
+            {/* Wadah Utama Foto */}
+            <div className="absolute inset-0 bg-white rounded-2xl border-2 border-slate-800 flex flex-col items-center justify-center overflow-hidden shadow-inner bg-slate-50">
+              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-bg flex items-center justify-center text-primary/70 shadow-md border border-white">
+                <User size={44} className="md:hidden" />
+                <User size={60} className="hidden md:block" />
               </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-[15px]">{member.name}</h4>
-                <p className="text-xs font-bold text-accent mb-1">{member.role}</p>
-                <p className="text-xs text-slate-500 font-medium">{member.major}</p>
+              <span className="text-xs font-bold text-text-muted mt-4 tracking-wider uppercase bg-slate-200/60 px-3 py-1 rounded-full">
+                [ Foto Profil ]
+              </span>
+            </div>
+          </div>
+
+          {/* SISI KANAN: Informasi Identitas & Judul Penelitian */}
+          <div className="flex-1 w-full text-center md:text-left flex flex-col justify-between py-2">
+            <div>
+              {/* Label Judul Penelitian */}
+              <div className="inline-flex items-center gap-2 bg-primary text-white text-[11px] font-black px-3 py-1 rounded-md mb-3 tracking-wide uppercase">
+                <FileText size={12} /> Judul Penelitian
+              </div>
+              
+              {/* Area Judul Project */}
+              <h2 className="text-xl md:text-2xl font-black text-slate-900 leading-snug mb-6 border-b-2 border-slate-200 pb-4">
+                Water Pump Interactive Learning Media (WP-ILM) Berbasis 3D Interaktif
+              </h2>
+
+              {/* Rincian Baris Identitas */}
+              <div className="space-y-4 text-left">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Nama Lengkap</span>
+                  <span className="text-base font-extrabold text-slate-900">Anugrah Syahru Ramadhan</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">NIM</span>
+                  <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-0.5 rounded-md w-max">
+                    <IdCard size={14} className="text-text-muted" />
+                    {/* Silakan ganti teks di bawah ini dengan nomor induk mahasiswa asli Anda */}
+                    <span className="text-sm font-mono font-bold text-slate-800">[Masukkan NIM Disini]</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Program Studi</span>
+                  <span className="text-sm font-bold text-accent bg-blue-50 border border-blue-100 px-3 py-0.5 rounded-full w-max">
+                    Teknik Informatika
+                  </span>
+                </div>
               </div>
             </div>
-          ))}
+          </div>
+
+        </div>
+
+        {/* BAGIAN BAWAH: Panel Informasi Almamater Kampus */}
+        <div className="border-t border-slate-200 pt-6 mt-2 flex flex-col sm:flex-row items-center gap-4 justify-between bg-slate-50/60 -mx-8 -mb-8 p-6 md:-mx-10 md:-mb-10 rounded-b-3xl">
+          <div className="flex items-center gap-4 text-left">
+            {/* Placeholder Kecil Logo Kampus */}
+            <div className="w-12 h-12 bg-white rounded-xl border border-slate-300 shadow-sm flex items-center justify-center p-1 shrink-0">
+              <GraduationCap size={26} className="text-primary" />
+            </div>
+            
+            {/* Nama Lengkap Kampus */}
+            <div>
+              <h4 className="font-black text-slate-900 text-sm leading-tight">
+                Universitas Teknologi Akba Makassar (UNITAMA)
+              </h4>
+              <p className="text-xs font-medium text-text-muted">Afiliasi Institusi Riset & Akademik</p>
+            </div>
+          </div>
+          
+          <div className="text-[10px] font-bold text-text-muted tracking-widest uppercase bg-white px-4 py-1.5 rounded-full shadow-sm border border-slate-200 whitespace-nowrap">
+            2026 © Riset Media Pembelajaran
+          </div>
         </div>
 
       </div>
     </div>
   );
 }
+
+/* =================================================================================
+KODE CADANGAN UNTUK MENAMPILKAN KEMBALI ANGGOTA TIM LAIN (JIKA DIKEMUDIAN HARI BUTUH):
+=================================================================================
+
+Jika di masa mendatang dosen pembimbing atau tim meminta nama anggota lain untuk 
+ditampilkan kembali di bawah kartu utama, Anda cukup menyalin komponen JSX di bawah 
+ini dan meletakkannya tepat di bawah penutup kontainer utama (di atas tag </div> paling luar):
+
+<div className="w-full max-w-4xl mt-6 bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-slate-200/60 shadow-sm text-left">
+  <h4 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-2">Kontributor Riset:</h4>
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold text-slate-600">
+    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Putri (Content Specialist)</div>
+    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Nursindi (UI/UX Designer)</div>
+    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Gabriela (Quality Tester)</div>
+  </div>
+</div>
+*/
