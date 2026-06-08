@@ -52,8 +52,8 @@ export default function Profile() {
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">NIT</span>
                   <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-0.5 rounded-md w-max">
                     <IdCard size={14} className="text-text-muted" />
-                    {"C1022312481"}
-                    <span className="text-sm font-mono font-bold text-slate-800">[Masukkan NIM Disini]</span>
+                    {}
+                    <span className="text-sm font-mono font-bold text-slate-800">"C1022312481"</span>
                   </div>
                 </div>
 
