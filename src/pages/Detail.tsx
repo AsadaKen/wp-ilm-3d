@@ -73,7 +73,9 @@ export default function Detail() {
             </div>
             <p className="text-sm text-slate-700 font-medium mb-2">Cara Kerjanya:</p>
             <p className="text-sm text-slate-800 leading-relaxed font-medium">
-              {content.workingPrinciple}
+              {content.workingPrinciple.map((line: string, index: number) => (
+                <p key={index}>{line}</p>
+              ))}
             </p>
           </div>
 
