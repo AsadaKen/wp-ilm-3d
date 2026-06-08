@@ -80,7 +80,7 @@ export default function Profile() {
             {/* Nama Lengkap Kampus */}
             <div>
               <h4 className="font-black text-slate-900 text-sm leading-tight">
-                Universitas Teknologi Akba Makassar (UNITAMA)
+                Politeknik Penerbangan Makassar
               </h4>
               <p className="text-xs font-medium text-text-muted">Afiliasi Institusi Riset & Akademik</p>
             </div>
