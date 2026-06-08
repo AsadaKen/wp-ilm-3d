@@ -38,21 +38,21 @@ export default function Profile() {
               
               {/* Area Judul Project */}
               <h2 className="text-xl md:text-2xl font-black text-slate-900 leading-snug mb-6 border-b-2 border-slate-200 pb-4">
-                Water Pump Interactive Learning Media (WP-ILM) Berbasis 3D Interaktif
+                Desain Simulasi Water Pump System Di Politeknik Penerbangan Makassar
               </h2>
 
               {/* Rincian Baris Identitas */}
               <div className="space-y-4 text-left">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Nama Lengkap</span>
-                  <span className="text-base font-extrabold text-slate-900">Anugrah Syahru Ramadhan</span>
+                  <span className="text-base font-extrabold text-slate-900">Fuji Pangestu</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">NIM</span>
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">NIT</span>
                   <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-0.5 rounded-md w-max">
                     <IdCard size={14} className="text-text-muted" />
-                    {/* Silakan ganti teks di bawah ini dengan nomor induk mahasiswa asli Anda */}
+                    {"C1022312481"}
                     <span className="text-sm font-mono font-bold text-slate-800">[Masukkan NIM Disini]</span>
                   </div>
                 </div>
@@ -60,7 +60,7 @@ export default function Profile() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Program Studi</span>
                   <span className="text-sm font-bold text-accent bg-blue-50 border border-blue-100 px-3 py-0.5 rounded-full w-max">
-                    Teknik Informatika
+                    Teknologi Bandar Udara 
                   </span>
                 </div>
               </div>
