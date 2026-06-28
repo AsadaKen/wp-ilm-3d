@@ -8,6 +8,11 @@ export interface PopupData {
   functions: string[];       // Daftar fungsi utama (bullet points)
   workingPrinciple: string[];  // Penjelasan cara kerja
   hideFromCatalog?: boolean;
+// --- FITUR BARU: Data Dinamis Halaman Detail ---
+  type?: string;
+  powerSource?: string;
+  application?: string;
+  trivia?: string;
 }
 
 export const componentsData: Record<string, PopupData> = {
@@ -38,7 +43,11 @@ export const componentsData: Record<string, PopupData> = {
       "Ketika cairan mencapai dinding casing yang berbentuk melebar (volute), kecepatan alirannya berkurang, tetapi tekanannya meningkat.",
       "Tahap 5: Pelepasan (Discharge)",
       "Cairan bertekanan tinggi kemudian dialirkan keluar melalui pipa tekan (discharge outlet) menuju titik tujuan."
-    ]
+    ],// --- DATA DINAMIS ---
+    type: 'Sentrifugal',
+    powerSource: 'Motor Listrik',
+    application: 'HVAC, Distribusi Air',
+    trivia: 'Pompa sentrifugal bekerja dengan mengubah energi mekanik menjadi energi kinetik melalui impeller yang berputar cepat, sehingga meningkatkan tekanan fluida secara efisien.'
   },
   'submersible': {
     title: 'Pompa Submersible',
@@ -60,7 +69,11 @@ export const componentsData: Record<string, PopupData> = {
       "Tahap 1: Pompa permukaan harus menghisap air naik, tugasnya adalah mendorong air ke atas.",
       "Tahap 2: Cairan masuk ke dalam pompa melalui saringan yang berada di badan pompa. Saringan ini berfungsi agar kerikil atau sampah besar tidak ikut masuk merusak komponen dalam.",
       "Tahap 3: Cairan akan masuk ke impeller pertama, tekanannya naik, lalu dioper ke impeller kedua, tekanannya naik lagi, begitu seterusnya sampai tekanannya cukup kuat untuk mendorong air naik ke permukaan yang tinggi.",
-    ]
+    ],// --- DATA DINAMIS ---
+    type: 'Celup / Submersible',
+    powerSource: 'Listrik Kedap Air',
+    application: 'Sumur Dalam, Drainase',
+    trivia: 'Tahukah Anda? Motor pompa submersible justru menggunakan air di sekelilingnya sebagai pendingin alami agar mesin tidak mengalami overheat atau panas berlebih.'
   },
   'valve': {
     title: 'Check Valve (Katup Satu Arah)',
@@ -82,7 +95,11 @@ export const componentsData: Record<string, PopupData> = {
       "Ketika pompa menyala, cairan mengalir menuju katup. Jika tekanan cairan dari sisi masuk lebih besar daripada tekanan di sisi keluar plus gaya beban piringan, maka piringan akan terdorong terbuka. Cairan pun bebas mengalir ke depan.",
       "Begitu pompa dimatikan, tekanan dari sisi masuk langsung drop.",
       "Aliran balik tersebut, bersama dengan gravitasi atau pegas katup, akan langsung mendorong piringan kembali ke posisi semula. Katup menutup rapat, dan aliran balik berhasil dihentikan seketika."
-    ]
+    ],// --- DATA DINAMIS ---
+    type: 'Katup Mekanis',
+    powerSource: 'Tekanan Fluida',
+    application: 'Pemipaan, Anti Backflow',
+    trivia: 'Check valve sama sekali tidak menggunakan listrik. Alat ini murni mengandalkan ilmu fisika, yaitu memanfaatkan dorongan air untuk membuka dan gravitasi untuk menutup.'
   },
     'stp-utama': {
     title: 'Penyaringan Air (STP)',
@@ -110,7 +127,11 @@ export const componentsData: Record<string, PopupData> = {
       "Memisahkan air bersih dari lumpur biologis hasil proses aerasi. lumpur yang lebih berat akan mengendap di dasar bak yang berbentuk kerucut, sedangkan air yang sudah jernih di bagian atas mengalir ke tahap berikutnya.",
       "Tahap 5: Tahap Akhir (Disinfection & Filtration)",
       "Tahap pembersihan akhir dan pembunuhan kuman berbahaya sebelum air dimanfaatkan kembali."
-    ]
+    ],// --- DATA DINAMIS ---
+    type: 'Filtrasi Multi-Tahap',
+    powerSource: 'Gravitasi & Pompa',
+    application: 'Pengolahan Air, STP',
+    trivia: 'Sistem Sewage Treatment Plant (STP) modern tidak hanya menyaring kotoran, tetapi juga memelihara bakteri baik yang bertugas "memakan" limbah organik di dalam air.'
   },
   'filter_satu': {
     title: 'Penyaringan Air (STP) Tahap 1-3',

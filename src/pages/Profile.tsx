@@ -52,7 +52,6 @@ export default function Profile() {
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">NIT</span>
                   <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-0.5 rounded-md w-max">
                     <IdCard size={14} className="text-text-muted" />
-                    {}
                     <span className="text-sm font-mono font-bold text-slate-800">C1022312481</span>
                   </div>
                 </div>
@@ -60,8 +59,20 @@ export default function Profile() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Program Studi</span>
                   <span className="text-sm font-bold text-accent bg-blue-50 border border-blue-100 px-3 py-0.5 rounded-full w-max">
-                    Teknologi Bandar Udara 
+                    Teknik Bandar Udara 
                   </span>
+                </div>
+
+                {/* PENAMBAHAN: Pembimbing I */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 pt-2">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Pembimbing I</span>
+                  <span className="text-sm font-bold text-slate-800">Dr. Ir. Fatmawati Sabur, S.Si.T., M.T.</span>
+                </div>
+
+                {/* PENAMBAHAN: Pembimbing II */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Pembimbing II</span>
+                  <span className="text-sm font-bold text-slate-800">Andi Fadilah Nugrah S.T., M.M</span>
                 </div>
               </div>
             </div>

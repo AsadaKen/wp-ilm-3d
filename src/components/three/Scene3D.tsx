@@ -3,13 +3,16 @@ import { OrbitControls, Environment, Html } from '@react-three/drei';
 import { Suspense } from 'react';
 import ModelViewer from './ModelViewer';
 import * as THREE from 'three';
+import { useAppStore } from '../../store/appStore'; // 1. IMPORT STATE ZUSTAND
 
 export default function Scene3D() {
-  // Ambil data status mode dan fungsi untuk memunculkan popup dari Zustand
-  
+  // 2. AMBIL STATUS MODE SAAT INI
+  const { is3DMode } = useAppStore(); 
 
   return (
     <Canvas
+      // 3. KUNCI OPTIMASI: Matikan render 3D saat masuk ke mode 2D (demand = standby)
+      frameloop={is3DMode ? "always" : "demand"} 
       camera={{ fov: 45, position: [10, 5, 10] }} 
       className="w-full h-full outline-none"
     >

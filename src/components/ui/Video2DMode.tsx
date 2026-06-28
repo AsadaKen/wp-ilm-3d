@@ -1,21 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAppStore } from '../../store/appStore';
-import { Search } from 'lucide-react'; // Icon kaca pembesar
+import { Search } from 'lucide-react'; 
 
 export default function Video2DMode() {
-  const { is3DMode, setActivePopup } = useAppStore();
+  const { is3DMode, setActivePopup, isAudioMuted } = useAppStore();
   const [showBoxes, setShowBoxes] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Logika Timer: Menghilangkan kotak otomatis setelah 4 detik
+  // Menyinkronkan status mute audio
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isAudioMuted;
+    }
+  }, [isAudioMuted]);
+
+  // Logika Timer: Menghilangkan kotak
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (showBoxes) {
       timer = setTimeout(() => {
         setShowBoxes(false);
-      }, 100000); // Angka 4000 = 4 detik (bisa Anda sesuaikan)
+      }, 4000); 
     }
     return () => clearTimeout(timer);
   }, [showBoxes]);
+
+  // ========================================================
+  // KUNCI OPTIMASI: Kontrol Play/Pause Video secara Eksplisit
+  // ========================================================
+  useEffect(() => {
+    if (videoRef.current) {
+      if (is3DMode) {
+        // Jika sedang di 3D, matikan video agar tidak memakan RAM
+        videoRef.current.pause();
+      } else {
+        // Jika beralih ke 2D, paksa video untuk berputar
+        videoRef.current.play().catch((err) => {
+          console.warn("Autoplay ditunda oleh peramban:", err);
+        });
+      }
+    }
+  }, [is3DMode]);
 
   return (
     <div
@@ -23,16 +48,16 @@ export default function Video2DMode() {
         is3DMode ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
       } z-20`}
     >
-      {/* Video Fullscreen (Tanpa jarak margin) */}
       <video
-        src="/videos/main_video2.mp4" // Ganti dengan path video diam Anda
+        ref={videoRef}
+        src="/videos/main_video2.mp4" 
         autoPlay
         loop
-        muted
+        playsInline 
+        muted={isAudioMuted} 
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Tombol Kaca Pembesar (Floating di kiri atas, di bawah toggle 3D) */}
       <button
         onClick={() => setShowBoxes(true)}
         className="absolute top-20 left-4 z-30 w-12 h-12 bg-white rounded-xl shadow-lg border-2 border-gray-100 flex items-center justify-center hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all"
@@ -40,58 +65,45 @@ export default function Video2DMode() {
         <Search size={24} className="text-red-500" strokeWidth={3} />
       </button>
 
-      {/* ========================================== */}
-      {/* AREA KOTAK 1: Pompa Sentrifugal                 */}
-      {/* ========================================== */}
+      {/* AREA KOTAK 1: Pompa Sentrifugal */}
       <div
-        onClick={() => setActivePopup('submersible')}
+        onClick={() => setActivePopup('pompa-sentrifugal')}
         className={`absolute top-[65%] left-[7%] w-[10%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
 
-      {/* ========================================== */}
-      {/* AREA KOTAK 2: Pompa Submersible                 */}
-      {/* ========================================== */}
+      {/* AREA KOTAK 2: Pompa Submersible */}
       <div
-        onClick={() => setActivePopup('sentrifugal')}
+        onClick={() => setActivePopup('pompa-submersible')}
         className={`absolute top-[28%] left-[12%] w-[10%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
 
-      {/* ========================================== */}
-      {/* AREA KOTAK 3: Check Valve                 */}
-      {/* ========================================== */}
+      {/* AREA KOTAK 3: Check Valve */}
       <div
-        onClick={() => setActivePopup('valve')}
+        onClick={() => setActivePopup('check-valve')}
         className={`absolute top-[28%] left-[26%] w-[5%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
 
-      {/* ========================================== */}
-      {/* AREA KOTAK 4: Filter Air (satu)           */}
-      {/* ========================================== */}
+      {/* AREA KOTAK 4: Filter Air (satu) */}
       <div
-        onClick={() => setActivePopup('filter_satu')}
+        onClick={() => setActivePopup('filter-air')} 
         className={`absolute top-[45%] left-[58%] w-[20%] h-[30%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
 
-      {/* ========================================== */}
-      {/* AREA KOTAK 4: Filter Air (dua)           */}
-      {/* ========================================== */}
+      {/* AREA KOTAK 5: Filter Air (dua) */}
       <div
-        onClick={() => setActivePopup('filter_dua')}
+        onClick={() => setActivePopup('filter-air')}
         className={`absolute top-[17%] left-[73%] w-[20%] h-[30%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
-
-      {/* Catatan: Sesuaikan persentase top, left, w (width), dan h (height) 
-          pada area kotak di atas agar posisinya pas menutupi objek di video Anda */}
     </div>
   );
 }

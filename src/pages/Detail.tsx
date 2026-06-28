@@ -1,5 +1,8 @@
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ArrowLeft, Play } from 'lucide-react';
+import { 
+  ArrowLeft, Box, Bookmark, Lightbulb, Play, 
+  MousePointer2, LayoutGrid, RefreshCw, Droplet, Zap, Activity
+} from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Html, ContactShadows } from '@react-three/drei';
 import { Suspense, useState } from 'react';
@@ -10,8 +13,8 @@ import VideoPlayerModal from '../components/ui/VideoPlayerModal';
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [showGuide, setShowGuide] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'default' | 'exploded'>('default');
 
   const content = id ? componentsData[id] : null;
 
@@ -19,133 +22,218 @@ export default function Detail() {
     return <Navigate to="/parts" replace />;
   }
 
+  const hasExplodedView = id === 'sentrifugal' || id === 'submersible';
+
+  // Array icon untuk fungsi utama
+  const functionIcons = [
+    <Droplet className="text-blue-500" size={16} />,
+    <Activity className="text-blue-500" size={16} />,
+    <LayoutGrid className="text-blue-500" size={16} />,
+    <Zap className="text-blue-500" size={16} />
+  ];
+
   return (
-    // PERBAIKAN 1: Mengunci container utama seukuran layar penuh (w-screen h-screen)
-    <div className="w-screen h-screen flex bg-bg overflow-hidden relative font-sans text-slate-800">
+    // Skala gap dan padding dikurangi (gap-4, p-3 md:p-4)
+    <div className="w-screen h-screen flex bg-slate-50 overflow-hidden font-sans text-slate-800 p-3 md:p-4 gap-4">
       
       {/* ========================================== */}
-      {/* KOLOM KIRI: Informasi (Terkunci & Scrollable) */}
+      {/* KOLOM KIRI: Informasi (Lebar Dikurangi)    */}
       {/* ========================================== */}
-      <div className="w-[35%] min-w-[320px] max-w-[450px] flex flex-col h-full border-r-[8px] border-slate-800 shrink-0 bg-bg">
+      <div className="w-[28%] min-w-[300px] max-w-[380px] h-full flex flex-col shrink-0 overflow-y-auto pr-2 pb-6 custom-scrollbar">
         
-        {/* Header Fix */}
-        <div className="px-8 pt-8 pb-4 shrink-0">
-          <button 
-            onClick={() => navigate('/parts')}
-            className="flex items-center gap-2 bg-[#E2E8F0] border-2 border-slate-300 px-5 py-2 rounded-full shadow-sm hover:bg-white transition-colors text-slate-800 font-bold text-sm mb-6"
-          >
-            <ArrowLeft size={18} />
-            Komponen
-          </button>
-          <h3 className="font-extrabold text-slate-900 text-lg">Detail Model</h3>
+        {/* Tombol Back */}
+        <button 
+          onClick={() => navigate('/parts')}
+          className="flex items-center justify-center gap-2 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-blue-600 font-bold text-xs mb-5 w-max"
+        >
+          <ArrowLeft size={16} />
+          Kembali ke Komponen
+        </button>
+
+        {/* Tag Detail Model */}
+        <div className="flex items-center gap-1.5 text-blue-600 font-bold text-xs mb-3">
+          <Box size={16} />
+          <span>Detail Model</span>
         </div>
 
-        {/* Area Teks (Scroll hanya terjadi di dalam div ini) */}
-        <div className="flex-1 overflow-y-auto px-8 pb-12">
-          
-          <div className="border-l-[6px] border-accent pl-4 mb-4">
-            <h1 className="text-4xl font-black text-slate-900 leading-tight">
-              {content.title}
-            </h1>
-          </div>
-          <p className="text-sm text-slate-700 leading-relaxed font-medium mb-8">
-            {content.description}
-          </p>
-
-          <div className="mb-8">
-            <div className="border-l-[6px] border-accent pl-4 mb-3">
-              <h2 className="text-2xl font-black text-slate-900">Fungsi Utama</h2>
-            </div>
-            <p className="text-sm text-slate-700 font-medium mb-2">Berikut fungsinya:</p>
-            <ul className="space-y-2">
-              {content.functions.map((func, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-slate-800 font-medium">
-                  <span className="w-1.5 h-1.5 bg-slate-800 rounded-full mt-1.5 shrink-0"></span>
-                  <span className="leading-relaxed">{func}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="border-l-[6px] border-accent pl-4 mb-3">
-              <h2 className="text-2xl font-black text-slate-900">Cara Kerja</h2>
-            </div>
-            <p className="text-sm text-slate-700 font-medium mb-2">Cara Kerjanya:</p>
-            <p className="text-sm text-slate-800 leading-relaxed font-medium">
-              {content.workingPrinciple.map((line: string, index: number) => (
-                <p key={index}>{line}</p>
-              ))}
-            </p>
-          </div>
-
+        {/* Judul (Tanpa tombol bookmark) */}
+        <div className="border-l-[4px] border-blue-600 pl-3 mb-3">
+          <h1 className="text-2xl font-black text-slate-900 leading-tight">
+            {content.title}
+          </h1>
         </div>
+
+        {/* Deskripsi (Teks lebih kecil) */}
+        <p className="text-xs text-slate-600 leading-relaxed font-medium mb-6">
+          {content.description}
+        </p>
+
+        {/* Fungsi Utama Header */}
+        <div className="flex items-center gap-1.5 mb-3">
+          <Bookmark size={16} className="text-blue-600 fill-blue-600" />
+          <h2 className="text-lg font-bold text-slate-900">Fungsi Utama</h2>
+        </div>
+
+        {/* List Fungsi (Card Style lebih rapat) */}
+        <div className="flex flex-col gap-2">
+          {content.functions.map((func, index) => (
+            <div key={index} className="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex items-start gap-3 hover:border-blue-200 transition-colors">
+              <div className="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
+                {functionIcons[index % functionIcons.length]}
+              </div>
+              <p className="text-xs text-slate-700 font-medium leading-relaxed pt-0.5">
+                {func}
+              </p>
+            </div>
+          ))}
+        </div>
+
       </div>
 
       {/* ========================================== */}
-      {/* KOLOM KANAN: Kanvas 3D & Video Placeholders  */}
+      {/* KOLOM KANAN: Visual & Multimedia           */}
       {/* ========================================== */}
-      <div className="flex-1 flex flex-col h-full relative overflow-hidden">
+      <div className="flex-1 h-full flex flex-col gap-3 overflow-hidden min-w-0">
         
-        {/* Tombol Panduan (!) */}
-        <div className="absolute top-6 right-6 z-20 flex flex-col items-end">
-          <button 
-            onMouseEnter={() => setShowGuide(true)}
-            onMouseLeave={() => setShowGuide(false)}
-            className="w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-accent hover:scale-105 transition-all text-xl font-bold"
-          >
-            !
-          </button>
-          
-          <div className={`mt-2 bg-white p-3 rounded-lg shadow-xl border border-slate-200 transition-all duration-300 origin-top-right ${showGuide ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
-            <p className="text-xs font-bold text-slate-800 mb-2 border-b pb-1">Panduan 3D:</p>
-            <ul className="text-xs text-slate-600 space-y-1.5 font-medium whitespace-nowrap">
-              <li>👆 Drag: Putar Bebas</li>
-              <li>✌️ Scroll: Zoom In/Out</li>
-              <li>🖐️ Klik Kanan: Geser Posisi</li>
-            </ul>
+        {/* BARIS ATAS: Info Cards */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Card Tipe */}
+          <div className="bg-white px-3 py-2 rounded-xl shadow-sm border border-slate-100 flex items-center gap-2">
+            <div className="w-6 h-6 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+              <RefreshCw size={12} />
+            </div>
+            <div>
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Tipe</p>
+              {/* Memanggil data type */}
+              <p className="text-xs font-bold text-slate-800">{content.type || '-'}</p>
+            </div>
+          </div>
+
+          {/* Card Sumber Daya */}
+          <div className="bg-white px-3 py-2 rounded-xl shadow-sm border border-slate-100 flex items-center gap-2">
+            <div className="w-6 h-6 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+              <Zap size={12} />
+            </div>
+            <div>
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Sumber Daya</p>
+              {/* Memanggil data powerSource */}
+              <p className="text-xs font-bold text-slate-800">{content.powerSource || '-'}</p>
+            </div>
+          </div>
+
+          {/* Card Aplikasi Umum */}
+          <div className="bg-white px-3 py-2 rounded-xl shadow-sm border border-slate-100 flex items-center gap-2">
+            <div className="w-6 h-6 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+              <LayoutGrid size={12} />
+            </div>
+            <div>
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Aplikasi Umum</p>
+              {/* Memanggil data application */}
+              <p className="text-xs font-bold text-slate-800 line-clamp-1">{content.application || '-'}</p>
+            </div>
           </div>
         </div>
 
-        {/* PERBAIKAN 2: Area 3D diberi properti min-h-0 agar tidak membengkak */}
-        <div className="flex-1 w-full relative cursor-grab active:cursor-grabbing min-h-0">
-          <Canvas camera={{ fov: 45, position: [8, 5, 8] }} className="outline-none w-full h-full">
-            <ambientLight intensity={0.9} />
-            <directionalLight position={[10, 20, 10]} intensity={1.2} color="#ffffff" />
-            <Environment preset="city" />
-            
-            <Suspense fallback={<Html center className="font-bold text-slate-600">Memuat Model...</Html>}>
-              <ModelViewer modelPath={content.modelPath} />
-              <ContactShadows position={[0, -0.05, 0]} opacity={0.65} scale={15} blur={2} color="#0F172A" />
-            </Suspense>
+        {/* AREA TENGAH: Kanvas 3D */}
+        <div className="flex-1 w-full bg-[#F1F5F9] rounded-2xl relative overflow-hidden border border-slate-200 shadow-inner">
+          
+          {/* Overlay UI 3D Kiri Atas (Panduan Mouse) */}
+          <div className="absolute top-4 left-4 z-10 bg-white/80 backdrop-blur-md px-3 py-2 rounded-xl shadow-sm border border-white flex items-center gap-3">
+            <MousePointer2 size={18} className="text-slate-600" />
+            <div className="text-[9px] font-bold text-slate-600 space-y-0.5">
+              <p>Drag untuk Rotasi</p>
+              <p>Scroll untuk Zoom</p>
+              <p>Klik untuk Fokus</p>
+            </div>
+          </div>
 
+          {/* Overlay UI 3D Kanan Tengah (Tombol Penampang Dihapus) */}
+          {hasExplodedView && (
+            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 bg-white/90 backdrop-blur-md rounded-xl shadow-sm border border-white flex flex-col p-1.5 gap-1.5">
+              <button 
+                onClick={() => setViewMode('exploded')}
+                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors gap-1 ${
+                  viewMode === 'exploded' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+                }`}
+              >
+                <Box size={18} />
+                <span className="text-[9px] font-bold whitespace-nowrap">Exploded View</span>
+              </button>
+              <div className="w-6 h-px bg-slate-200 mx-auto"></div>
+              <button 
+                onClick={() => setViewMode('default')}
+                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors gap-1 ${
+                  viewMode === 'default' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+                }`}
+              >
+                <RefreshCw size={18} />
+                <span className="text-[9px] font-bold">Default</span>
+              </button>
+            </div>
+          )}
+
+          {/* Canvas 3D Asli */}
+          <Canvas camera={{ fov: 45, position: [8, 5, 8] }} className="outline-none cursor-grab active:cursor-grabbing w-full h-full">
+            <ambientLight intensity={1.2} />
+            <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />
+            <Environment preset="city" />
+            <Suspense fallback={<Html center className="text-sm font-bold text-slate-500">Memuat...</Html>}>
+              <ModelViewer modelPath={content.modelPath} viewMode={viewMode} />
+              <ContactShadows position={[0, -0.05, 0]} opacity={0.4} scale={15} blur={2} color="#000000" />
+            </Suspense>
             <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
           </Canvas>
         </div>
 
-        {/* Area Video Placeholders (Bawah) */}
-        <div className="h-[140px] w-full flex items-center justify-center gap-8 shrink-0 pb-6 bg-bg">
+        {/* BARIS BAWAH: Video & Trivia (Tinggi Dikurangi) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-[130px] shrink-0">
           
-          {/* Mapping otomatis dari data komponen */}
-          {content.videos.map((video, index) => (
+          {/* Mapping Video */}
+          {content.videos?.slice(0, 2).map((video, index) => (
             <div 
               key={index}
-              onClick={() => setActiveVideo(video.url)} // <-- URL video spesifik
-              className="relative w-[180px] h-[90px] rounded-2xl shadow-md cursor-pointer group overflow-hidden border-2 border-white/50 hover:border-accent hover:scale-105 transition-all duration-300"
+              onClick={() => setActiveVideo(video.url)}
+              className="relative bg-slate-900 rounded-xl overflow-hidden shadow-sm cursor-pointer group h-full"
             >
               <img 
-                src={video.cover} // <-- Thumbnail video spesifik
+                src={video.cover} 
                 alt={`Video ${index + 1}`} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
               />
-              <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center pl-1 backdrop-blur-sm bg-white/20 group-hover:bg-accent group-hover:border-accent transition-all duration-300 shadow-lg">
+                <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center pl-1 backdrop-blur-sm bg-black/30 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
                   <Play fill="white" className="text-white w-4 h-4" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-0 left-0 w-full p-3 flex justify-between items-end">
+                <div>
+                  <p className="text-[9px] font-bold text-white/70 mb-0.5">Video {index + 1}</p>
+                  <p className="text-xs font-bold text-white leading-tight">
+                    {index === 0 ? "Prinsip Kerja Pompa" : "Perawatan Sistem"}
+                  </p>
+                </div>
+                <div className="bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] font-bold text-white">
+                  03:45
                 </div>
               </div>
             </div>
           ))}
+
+          {/* Card Tahukah Anda (Teks lebih kecil) */}
+          {/* Card Tahukah Anda */}
+          <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100 h-full flex flex-col justify-center">
+            <div className="flex items-center gap-1.5 mb-2">
+              <Lightbulb size={16} className="text-blue-600" />
+              <h3 className="text-xs font-bold text-blue-600">Tahukah Anda?</h3>
+            </div>
+            {/* Memanggil data trivia */}
+            <p className="text-xs text-slate-600 leading-relaxed font-medium line-clamp-4 overflow-y-auto custom-scrollbar">
+              {content.trivia || 'Fakta menarik mengenai komponen ini belum tersedia.'}
+            </p>
+          </div>
 
         </div>
 

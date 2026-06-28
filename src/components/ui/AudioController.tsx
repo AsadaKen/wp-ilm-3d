@@ -4,39 +4,50 @@ import { Howl } from 'howler';
 import { useAppStore } from '../../store/appStore';
 
 export default function AudioController() {
-  const { isAudioMuted, toggleAudio, activePopup } = useAppStore();
+  const { isAudioMuted, toggleAudio, activePopup, is3DMode } = useAppStore();
   const soundRef = useRef<Howl | null>(null);
 
-  // Inisialisasi Audio saat komponen dimuat
+  // 1. Inisialisasi Howler
   useEffect(() => {
     soundRef.current = new Howl({
-      src: ['/audio/narasi-utama.mp3'], // Ganti dengan path audio Anda
+      src: ['/audio/narasi-utama.mp3'], 
       loop: true,
-      volume: 0, // Mulai dari 0, lalu kita fade in
-      autoplay: true,
-      html5: true, // Penting untuk file besar agar distreaming
+      volume: 0,
+      autoplay: false, 
+      html5: true,
     });
 
-    // Membersihkan memori saat pengguna pindah halaman
     return () => {
       soundRef.current?.unload();
     };
   }, []);
 
-  // Logika Mute/Unmute & Efek Ducking (Volume turun saat popup muncul)
+  // 2. Logika Mute dan Ducking (Volume naik/turun)
   useEffect(() => {
     if (!soundRef.current) return;
-
     const sound = soundRef.current;
 
     if (isAudioMuted) {
-      sound.fade(sound.volume(), 0, 500); // Fade out perlahan jika di-mute
+      sound.fade(sound.volume(), 0, 300);
     } else {
-      // Jika popup terbuka, volume 20%, jika tertutup volume 100%
       const targetVolume = activePopup ? 0.2 : 1.0;
-      sound.fade(sound.volume(), targetVolume, 500); 
+      sound.fade(sound.volume(), targetVolume, 300); 
     }
   }, [isAudioMuted, activePopup]);
+
+  // 3. PERBAIKAN: Hentikan suara saat berpindah ke Mode 3D menggunakan useEffect
+  useEffect(() => {
+    if (is3DMode && soundRef.current) {
+      soundRef.current.pause();
+    }
+  }, [is3DMode]);
+
+  // =========================================================
+  // KUNCI UTAMA: Early return HARUS diletakkan di bawah semua Hooks
+  // =========================================================
+  if (is3DMode) {
+    return null; // Sembunyikan tombol saat berada di Mode 3D
+  }
 
   return (
     <button
