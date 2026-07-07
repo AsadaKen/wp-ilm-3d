@@ -65,17 +65,17 @@ export default function Video2DMode() {
         <Search size={24} className="text-red-500" strokeWidth={3} />
       </button>
 
-      {/* AREA KOTAK 1: Pompa Sentrifugal */}
+      {/* AREA KOTAK 1: Pompa Submersible */}
       <div
-        onClick={() => setActivePopup('pompa-sentrifugal')}
+        onClick={() => setActivePopup('submersible')}
         className={`absolute top-[65%] left-[7%] w-[10%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
       />
 
-      {/* AREA KOTAK 2: Pompa Submersible */}
+      {/* AREA KOTAK 2: Pompa Sentrifugal*/}
       <div
-        onClick={() => setActivePopup('pompa-submersible')}
+        onClick={() => setActivePopup('sentrifugal')}
         className={`absolute top-[28%] left-[12%] w-[10%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
@@ -83,7 +83,7 @@ export default function Video2DMode() {
 
       {/* AREA KOTAK 3: Check Valve */}
       <div
-        onClick={() => setActivePopup('check-valve')}
+        onClick={() => setActivePopup('valve')}
         className={`absolute top-[28%] left-[26%] w-[5%] h-[20%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
@@ -91,7 +91,7 @@ export default function Video2DMode() {
 
       {/* AREA KOTAK 4: Filter Air (satu) */}
       <div
-        onClick={() => setActivePopup('filter-air')} 
+        onClick={() => setActivePopup('filter_satu')} 
         className={`absolute top-[45%] left-[58%] w-[20%] h-[30%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
@@ -99,7 +99,7 @@ export default function Video2DMode() {
 
       {/* AREA KOTAK 5: Filter Air (dua) */}
       <div
-        onClick={() => setActivePopup('filter-air')}
+        onClick={() => setActivePopup('filter_dua')}
         className={`absolute top-[17%] left-[73%] w-[20%] h-[30%] border-[3px] border-white/80 bg-white/10 cursor-pointer transition-all duration-500 ease-out z-30 backdrop-blur-[1px] hover:bg-white/20 hover:border-white ${
           showBoxes ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'
         }`}
