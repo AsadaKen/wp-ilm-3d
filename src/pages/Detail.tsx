@@ -214,10 +214,7 @@ export default function Detail() {
                   <p className="text-xs font-bold text-white leading-tight">
                     {index === 0 ? "Prinsip Kerja Pompa" : "Perawatan Sistem"}
                   </p>
-                </div>
-                <div className="bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] font-bold text-white">
-                  03:45
-                </div>
+                </div>                
               </div>
             </div>
           ))}

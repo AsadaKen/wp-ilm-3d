@@ -22,8 +22,7 @@ export const componentsData: Record<string, PopupData> = {
     modelPath: '/models/Centrifugal_Pump_View1.glb', // Pastikan Anda punya file ini nanti
     thumbnail: '/images/parts/pompa-sentrifugal.jpg', // Gambar untuk kartu di menu PARTS
     videos: [
-      { url: '/videos/sentrifugal-1.mp4', cover: '/images/covers/sentrifugal-1.jpg' },
-      { url: '/videos/sentrifugal-2.mp4', cover: '/images/covers/sentrifugal-2.jpg' }
+      { url: '/videos/penjelasan_sentrifugal.mp4', cover: '/images/covers/penjelasan_sentrifugal.png' }
     ],
     popupAnimation: '/videos/centrifugal_animasi.mp4',
     functions: [
@@ -55,8 +54,8 @@ export const componentsData: Record<string, PopupData> = {
     modelPath: '/models/Submersial_Pump_View2.glb',
     thumbnail: '/images/parts/pompa-submersible.jpg', // Gambar untuk kartu di menu PARTS
     videos: [
-      { url: '/videos/sentrifugal-1.mp4', cover: '/images/covers/sentrifugal-1.jpg' },
-      { url: '/videos/sentrifugal-2.mp4', cover: '/images/covers/sentrifugal-2.jpg' }
+      { url: '/videos/penjelasan_submersible1.mp4', cover: '/images/covers/penjelasan_submersible1.png' },
+      { url: '/videos/penjelasan_submersible2.mp4', cover: '/images/covers/penjelasan_submersible2.png' },
     ],
     popupAnimation: '/videos/submersible-animasi.mp4',
     functions: [
@@ -81,8 +80,7 @@ export const componentsData: Record<string, PopupData> = {
     modelPath: '/models/Check_Valve.glb',
     thumbnail: '/images/parts/check-valve.jpg', // Gambar untuk kartu di menu PARTS
     videos: [
-      { url: '/videos/sentrifugal-1.mp4', cover: '/images/covers/sentrifugal-1.jpg' },
-      { url: '/videos/sentrifugal-2.mp4', cover: '/images/covers/sentrifugal-2.jpg' }
+      { url: '/videos/penjelasan_valve.mp4', cover: '/images/covers/penjelasan_valve.png' }
     ],
     popupAnimation: '/videos/valve_animasi.mp4',
     functions: [
@@ -107,8 +105,7 @@ export const componentsData: Record<string, PopupData> = {
     modelPath: '/models/STP-version-1.glb',
     thumbnail: '/images/parts/STP.jpg', // Gambar untuk kartu di menu PARTS
     videos: [
-      { url: '/videos/senrtrifugal-1.mp4', cover: '/images/covers/sentrifugal-1.jpg' },
-      { url: '/videos/sentrifugal-2.mp4', cover: '/images/covers/sentrifugal-2.jpg' }
+      { url: '/videos/penjelasan_stp.mp4', cover: '/images/covers/penjelasan_stp.png' }
     ],
     popupAnimation: '/videos/animasi-popup-sentrifugal.mp4',
     functions: [
