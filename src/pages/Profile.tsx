@@ -1,4 +1,4 @@
-import { User, GraduationCap, FileText, IdCard } from 'lucide-react';
+import { FileText, IdCard } from 'lucide-react';
 
 export default function Profile() {
   return (
@@ -11,20 +11,19 @@ export default function Profile() {
         {/* BLOCK UTAMA: Split Tampilan Kiri & Kanan */}
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
           
-          {/* SISI KIRI: Placeholder Besar Gambar Profil Keren */}
+          {/* SISI KIRI: Gambar Profil */}
           <div className="w-48 h-48 md:w-64 md:h-64 shrink-0 relative group">
             {/* Efek Bayangan dan Rotasi Bingkai */}
             <div className="absolute inset-0 bg-gradient-to-tr from-accent to-primary rounded-2xl rotate-3 scale-102 group-hover:rotate-6 transition-transform duration-300 shadow-md" />
             
             {/* Wadah Utama Foto */}
             <div className="absolute inset-0 rounded-2xl border-2 border-slate-800 flex flex-col items-center justify-center overflow-hidden shadow-inner bg-slate-50">
-              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-bg flex items-center justify-center text-primary/70 shadow-md border border-white">
-                <User size={44} className="md:hidden" />
-                <User size={60} className="hidden md:block" />
-              </div>
-              <span className="text-xs font-bold text-text-muted mt-4 tracking-wider uppercase bg-slate-200/60 px-3 py-1 rounded-full">
-                [ Foto Profil ]
-              </span>
+              {/* GAMBAR PROFIL DIMASUKKAN DI SINI */}
+              <img 
+                src="/images/covers/foto-profil.JPG" 
+                alt="Foto Profil Fuji Pangestu" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
             </div>
           </div>
 
@@ -63,13 +62,11 @@ export default function Profile() {
                   </span>
                 </div>
 
-                {/* PENAMBAHAN: Pembimbing I */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 pt-2">
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Pembimbing I</span>
                   <span className="text-sm font-bold text-slate-800">Dr. Ir. Fatmawati Sabur, S.Si.T., M.T.</span>
                 </div>
 
-                {/* PENAMBAHAN: Pembimbing II */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                   <span className="text-xs font-bold text-text-muted uppercase tracking-wider w-28 shrink-0">Pembimbing II</span>
                   <span className="text-sm font-bold text-slate-800">Andi Fadilah Nugrah S.T., M.M</span>
@@ -83,9 +80,14 @@ export default function Profile() {
         {/* BAGIAN BAWAH: Panel Informasi Almamater Kampus */}
         <div className="border-t border-slate-200 pt-6 mt-2 flex flex-col sm:flex-row items-center gap-4 justify-between bg-slate-50/60 -mx-8 -mb-8 p-6 md:-mx-10 md:-mb-10 rounded-b-3xl">
           <div className="flex items-center gap-4 text-left">
-            {/* Placeholder Kecil Logo Kampus */}
-            <div className="w-12 h-12 bg-white rounded-xl border border-slate-300 shadow-sm flex items-center justify-center p-1 shrink-0">
-              <GraduationCap size={26} className="text-primary" />
+            {/* Logo Kampus */}
+            <div className="w-12 h-12 bg-white rounded-xl border border-slate-300 shadow-sm flex items-center justify-center p-1 shrink-0 overflow-hidden">
+              {/* LOGO KAMPUS DIMASUKKAN DI SINI */}
+              <img 
+                src="/images/covers/logo-kampus.png" 
+                alt="Logo Politeknik Penerbangan Makassar" 
+                className="w-full h-full object-contain"
+              />
             </div>
             
             {/* Nama Lengkap Kampus */}
@@ -93,12 +95,11 @@ export default function Profile() {
               <h4 className="font-black text-slate-900 text-sm leading-tight">
                 Politeknik Penerbangan Makassar
               </h4>
-              <p className="text-xs font-medium text-text-muted">Afiliasi Institusi Riset & Akademik</p>
             </div>
           </div>
           
           <div className="text-[10px] font-bold text-text-muted tracking-widest uppercase bg-white px-4 py-1.5 rounded-full shadow-sm border border-slate-200 whitespace-nowrap">
-            2026 © Riset Media Pembelajaran
+            2026 © Politeknik Penerbangan Makassar
           </div>
         </div>
 
@@ -106,21 +107,3 @@ export default function Profile() {
     </div>
   );
 }
-
-/* =================================================================================
-KODE CADANGAN UNTUK MENAMPILKAN KEMBALI ANGGOTA TIM LAIN (JIKA DIKEMUDIAN HARI BUTUH):
-=================================================================================
-
-Jika di masa mendatang dosen pembimbing atau tim meminta nama anggota lain untuk 
-ditampilkan kembali di bawah kartu utama, Anda cukup menyalin komponen JSX di bawah 
-ini dan meletakkannya tepat di bawah penutup kontainer utama (di atas tag </div> paling luar):
-
-<div className="w-full max-w-4xl mt-6 bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-slate-200/60 shadow-sm text-left">
-  <h4 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-2">Kontributor Riset:</h4>
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold text-slate-600">
-    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Putri (Content Specialist)</div>
-    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Nursindi (UI/UX Designer)</div>
-    <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200">Gabriela (Quality Tester)</div>
-  </div>
-</div>
-*/
